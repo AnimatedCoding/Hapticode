@@ -1,5 +1,4 @@
 <h1>Hapticode</h1>
-Haptic studio
 
 Find the perfect haptic for your app!
 
