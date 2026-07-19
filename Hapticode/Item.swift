@@ -4,15 +4,16 @@
 //
 //  Created by Noah on 7/5/26.
 //
-
-import Foundation
-import SwiftData
-
-@Model
-final class Item {
-    var timestamp: Date
-    
-    init(timestamp: Date) {
-        self.timestamp = timestamp
-    }
-}
+//
+//import Foundation
+//import SwiftData
+//
+//@Model
+//@available(iOS 17.0, *)
+//final class Item {
+//    var timestamp: Date
+//    
+//    init(timestamp: Date) {
+//        self.timestamp = timestamp
+//    }
+//}
