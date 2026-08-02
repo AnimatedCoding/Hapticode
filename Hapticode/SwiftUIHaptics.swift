@@ -105,10 +105,10 @@ struct ContentView: View {
     }
 }
 """)
-                    .background {
+                    .listRowBackground (
                         RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
                             .foregroundStyle(.background)
-                    }
+                    )
                 }
                 .scrollIndicators(.hidden)
                 Link("Docs", destination: URL(string: "https://developer.apple.com/documentation/swiftui/view/sensoryfeedback(_:trigger:)")!)
@@ -157,3 +157,11 @@ struct SwiftUIHapticsListRow: View {
         }
     }
 }
+
+//UINotificationFeedbackGenerator
+
+//UISelectionFeedbackGenerator
+
+//Core Haptics
+
+//Apple Watch

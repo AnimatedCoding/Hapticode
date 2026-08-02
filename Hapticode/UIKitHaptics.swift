@@ -44,12 +44,11 @@ struct UIKitHapticsInfo: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        if #available(iOS 16, *) {
-            NavigationStack {
-                List {
-                    Text("These are haptics you can get with UIImpactFeedbackGenerator. Here's an example:")
-                    ScrollView(.horizontal) {
-                        Text(
+        NavigationStackOldCompatible {
+            List {
+                Text("These are haptics you can get with UIImpactFeedbackGenerator. Here's an example:")
+                ScrollView(.horizontal) {
+                    Text(
 """
 struct ContentView: View {
     var body: some View {
@@ -60,58 +59,22 @@ struct ContentView: View {
         }
     }
 }
-""")
-                        .background {
-                            RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
-                                .foregroundStyle(.background)
-                        }
-                    }
-                    .scrollIndicators(.hidden)
-                    Link("Docs", destination: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator")!)
+"""
+                    )
+                    .listRowBackground (
+                        RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
+                            .foregroundStyle(.background)
+                    )
                 }
-                .listRowSeparator(.hidden)
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Image(systemName: "xmark")
-                        }
-                    }
-                }
+                Link("Docs", destination: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator")!)
             }
-        } else {
-            NavigationView {
-                List {
-                    Text("These are haptics you can get with UIImpactFeedbackGenerator. Here's an example:")
-                    ScrollView(.horizontal) {
-                        Text(
-"""
-struct ContentView: View {
-    var body: some View {
-        Button(haptic.name) {
-            let impactGenerator = UIImpactFeedbackGenerator(style: .light)
-            impactGenerator.prepare()
-            impactGenerator.impactOccurred()
-        }
-    }
-}
-""")
-                        .background {
-                            RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
-                                .foregroundStyle(.background)
-                        }
-                    }
-                    Link("Docs", destination: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator")!)
-                }
-                .listRowSeparator(.hidden)
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Image(systemName: "xmark")
-                        }
+            .listRowSeparator(.hidden)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "xmark")
                     }
                 }
             }
@@ -144,6 +107,8 @@ struct UIKitHapticRow: View {
 }
 
 #Preview {
-    UIKitHaptics()
+    List {
+        UIKitHaptics()
+    }
 }
 #endif

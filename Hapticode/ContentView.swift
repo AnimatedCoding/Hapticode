@@ -26,6 +26,7 @@ struct ContentView: View {
 #else
                 UIKitHaptics()
 #endif
+                CoreHapticsList()
                 //                ForEach(items) { item in
                 //                    NavigationLink {
                 //                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")

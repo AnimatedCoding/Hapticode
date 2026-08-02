@@ -1,0 +1,72 @@
+{
+  "fill" : {
+    "automatic-gradient" : "extended-srgb:0.00000,0.53333,1.00000,1.00000"
+  },
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "image-name" : "Cube.png",
+          "name" : "Cube",
+          "position" : {
+            "scale" : 0.59,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "image-name" : "Inner ring.png",
+          "name" : "Inner ring",
+          "opacity" : 0.75,
+          "position" : {
+            "scale" : 0.57,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "image-name" : "Middle ring.png",
+          "name" : "Middle ring",
+          "opacity" : 0.5,
+          "position" : {
+            "scale" : 0.59,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "image-name" : "Outer ring.png",
+          "name" : "Outer ring",
+          "opacity" : 0.25,
+          "position" : {
+            "scale" : 0.62,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
