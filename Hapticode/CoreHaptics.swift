@@ -19,6 +19,14 @@ struct CoreHapticsList: View {
             }) {
                 Label("Add new haptic", systemImage: "plus")
             }
+            .sheet(isPresented: $showAdder) {
+                if #available(iOS 16.0, *) {
+                    CoreHapticsEditor()
+                        .presentationDetents([.medium, .large])
+                } else {
+                    CoreHapticsEditor()
+                }
+            }
             Text("Currently I haven't implemented a saving feature, so you can't save haptics. But you can still have fun making them!")
             //            ForEach(haptics) { haptic in
             //                CoreHapticsListRow(haptic: haptic)
@@ -35,14 +43,6 @@ struct CoreHapticsList: View {
                 .sheet(isPresented: $info, content: {
                     CoreHapticsInfo()
                 })
-            }
-        }
-        .sheet(isPresented: $showAdder) {
-            if #available(iOS 16.0, *) {
-                CoreHapticsEditor()
-                    .presentationDetents([.medium, .large])
-            } else {
-                CoreHapticsEditor()
             }
         }
     }
