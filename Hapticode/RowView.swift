@@ -34,7 +34,12 @@ struct RowView: View {
             Button(action: {
                 button()
             }) {
-                Text(haptic.name)
+                if haptic.name == "" {
+                    Text("No name")
+                        .opacity(0.5)
+                } else {
+                    Text(haptic.name)
+                }
                 Spacer()
             }
             .supportsLongPress {
@@ -47,12 +52,15 @@ struct RowView: View {
             }
             .contentShape(Rectangle())
             if !haptic.platforms.isEmpty && !haptic.platforms.contains(os) {
+                //MARK: -- make this not a button in voice over
                 Button(action: {
                     showHelp = true
                 }) {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundStyle(.orange)
                 }
+                .accessibilityLabel(Text("This haptic is not listed as available on your OS"))
+                .accessibilityRemoveTraits(.isButton)
                 .help("This haptic is not listed as available on your OS")
                 .alert("This haptic is not listed as available on your OS", isPresented: $showHelp, actions: {
                     Button(role: .cancel, action: {
@@ -66,8 +74,8 @@ struct RowView: View {
         .foregroundStyle(.primary)
         .buttonStyle(.borderless)
         #if os(macOS)
+        .modifier(EmptyModifier())
         #else
-        EmptyView()
         .sheet(isPresented: $showShareSheet) {
             ShareSheet(items: ["Check out the docs", haptic.docURL])
         }

@@ -83,12 +83,25 @@ struct ContentView: View {
 }
 
 struct UIKitHaptic: Haptic {
-    let id = UUID()
-    let name: String
-    let haptic: UIImpactFeedbackGenerator.FeedbackStyle
-    let docURL: URL
-    let platforms: [Platform] = []
+    var id = UUID()
+    var name: String
+    var haptic: UIImpactFeedbackGenerator.FeedbackStyle
+    var docURL: URL
+    var platforms: [Platform] = []
 }
+
+extension UIImpactFeedbackGenerator.FeedbackStyle: @retroactive Decodable {}
+extension UIImpactFeedbackGenerator.FeedbackStyle: @retroactive Encodable {}
+
+//UINotificationFeedbackGenerator.FeedbackType.error
+//UINotificationFeedbackGenerator.FeedbackType.success
+//UINotificationFeedbackGenerator.FeedbackType.warning
+//
+//UISelectionFeedbackGenerator.selectionChanged()//?
+//
+//UICanvasFeedbackGenerator.responds(to: )
+//
+//UIFeedbackGenerator
 
 struct UIKitHapticRow: View {
     @State private var info = false

@@ -25,19 +25,19 @@ struct SwiftUIHaptics: View {
                 SwiftUIFeedback(name: "Stop", haptic: .stop, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/stop")!, platforms: [.watchOS]),
                 SwiftUIFeedback(name: "Success", haptic: .success, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/success")!, platforms: [.iOS, .watchOS]),
                 SwiftUIFeedback(name: "Warning", haptic: .warning, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/warning")!, platforms: [.iOS, .watchOS]),
-                SwiftUIFeedback(name: "Impact (rigid)", haptic: .impact(flexibility: .rigid), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
-                SwiftUIFeedback(name: "Impact (soft)", haptic: .impact(flexibility: .soft), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
-                SwiftUIFeedback(name: "Impact (solid)", haptic: .impact(flexibility: .solid), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
-                SwiftUIFeedback(name: "Press (button)", haptic: .press(.button), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/press(_:)")!, platforms: [.notSpecified]),
-                SwiftUIFeedback(name: "Press (buttonIconOnly)", haptic: .press(.buttonIconOnly), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/press(_:)")!, platforms: [.notSpecified]),
-                SwiftUIFeedback(name: "Press (slider)", haptic: .press(.slider), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/press(_:)")!, platforms: [.notSpecified]),
-                SwiftUIFeedback(name: "Press (tab)", haptic: .press(.tab), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/press(_:)")!, platforms: [.notSpecified]),
-                SwiftUIFeedback(name: "Press (toggle)", haptic: .press(.toggle), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/press(_:)")!, platforms: [.notSpecified]),
-                SwiftUIFeedback(name: "Release (slider)", haptic: .release(.slider), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/release(_:)")!, platforms: [.notSpecified]),
-                SwiftUIFeedback(name: "Selection (maximum)", haptic: .selection(.maximum), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/selection(_:)")!, platforms: [.notSpecified]),
-                SwiftUIFeedback(name: "Selection (minimum)", haptic: .selection(.minimum), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/selection(_:)")!, platforms: [.notSpecified]),
-                SwiftUIFeedback(name: "Selection (off)", haptic: .selection(.off), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/selection(_:)")!, platforms: [.notSpecified]),
-                SwiftUIFeedback(name: "Selection (on)", haptic: .selection(.on), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/selection(_:)")!, platforms: [.notSpecified]),
+                SwiftUIFeedback(name: "Impact (rigid)", haptic: .impactrigid, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
+                SwiftUIFeedback(name: "Impact (soft)", haptic: .impactsoft, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
+                SwiftUIFeedback(name: "Impact (solid)", haptic: .impactsolid, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
+                SwiftUIFeedback(name: "Press (button)", haptic: .pressbutton, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/press(_:)")!, platforms: [.notSpecified]),
+                SwiftUIFeedback(name: "Press (buttonIconOnly)", haptic: .pressbuttonIconOnly, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/press(_:)")!, platforms: [.notSpecified]),
+                SwiftUIFeedback(name: "Press (slider)", haptic: .pressslider, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/press(_:)")!, platforms: [.notSpecified]),
+                SwiftUIFeedback(name: "Press (tab)", haptic: .presstab, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/press(_:)")!, platforms: [.notSpecified]),
+                SwiftUIFeedback(name: "Press (toggle)", haptic: .presstoggle, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/press(_:)")!, platforms: [.notSpecified]),
+                SwiftUIFeedback(name: "Release (slider)", haptic: .releaseslider, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/release(_:)")!, platforms: [.notSpecified]),
+                SwiftUIFeedback(name: "Selection (maximum)", haptic: .selectionmaximum, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/selection(_:)")!, platforms: [.notSpecified]),
+                SwiftUIFeedback(name: "Selection (minimum)", haptic: .selectionminimum, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/selection(_:)")!, platforms: [.notSpecified]),
+                SwiftUIFeedback(name: "Selection (off)", haptic: .selectionoff, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/selection(_:)")!, platforms: [.notSpecified]),
+                SwiftUIFeedback(name: "Selection (on)", haptic: .selectionon, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/selection(_:)")!, platforms: [.notSpecified]),
             ]
         } else {
             swiftUIHaptics = [
@@ -53,9 +53,9 @@ struct SwiftUIHaptics: View {
                 SwiftUIFeedback(name: "Stop", haptic: .stop, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/stop")!, platforms: [.watchOS]),
                 SwiftUIFeedback(name: "Success", haptic: .success, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/success")!, platforms: [.iOS, .watchOS]),
                 SwiftUIFeedback(name: "Warning", haptic: .warning, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/warning")!, platforms: [.iOS, .watchOS]),
-                SwiftUIFeedback(name: "Impact (rigid)", haptic: .impact(flexibility: .rigid), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
-                SwiftUIFeedback(name: "Impact (soft)", haptic: .impact(flexibility: .soft), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
-                SwiftUIFeedback(name: "Impact (solid)", haptic: .impact(flexibility: .solid), docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
+                SwiftUIFeedback(name: "Impact (rigid)", haptic: .impactrigid, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
+                SwiftUIFeedback(name: "Impact (soft)", haptic: .impactsoft, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
+                SwiftUIFeedback(name: "Impact (solid)", haptic: .impactsolid, docURL: URL(string: "https://developer.apple.com/documentation/swiftui/sensoryfeedback/impact(flexibility:intensity:)")!, platforms: [.iOS, .watchOS]),
             ]
         }
     }
@@ -130,23 +130,123 @@ struct ContentView: View {
     }
 }
 
-@available(iOS 17.0, macOS 14, *)
+@available(iOS 17.5, macOS 14, *)
 struct SwiftUIFeedback: Haptic {
-    let id = UUID()
-    let name: String
-    let haptic: SensoryFeedback
-    let docURL: URL
-    let platforms: [Platform]
+    var id = UUID()
+    var name: String
+    var haptic: FeedbackStyle
+    var docURL: URL
+    var platforms: [Platform]
 }
 
-@available(iOS 17.0, macOS 14, *)
+
+@available(iOS 17.5, *)
+enum FeedbackStyle: Codable {
+    case alignment, decrease, error, impact, increase, levelChange, pathComplete, selection, start, stop, success, warning, impactrigid, impactsoft, impactsolid
+    @available(iOS 26.0, *)
+    case pressbutton, pressbuttonIconOnly, pressslider, presstab, presstoggle, releaseslider, selectionmaximum, selectionminimum, selectionoff, selectionon
+
+    var sensoryFeedback: SensoryFeedback {
+        if #available(iOS 26, *) {
+            switch self {
+            case .alignment:
+                    .alignment
+            case .decrease:
+                    .decrease
+            case .error:
+                    .error
+            case .impact:
+                    .impact
+            case .increase:
+                    .increase
+            case .levelChange:
+                    .levelChange
+            case .pathComplete:
+                    .pathComplete
+            case .selection:
+                    .selection
+            case .start:
+                    .start
+            case .stop:
+                    .stop
+            case .success:
+                    .success
+            case .warning:
+                    .warning
+            case .impactrigid:
+                    .impact(flexibility: .rigid)
+            case .impactsoft:
+                    .impact(flexibility: .soft)
+            case .impactsolid:
+                    .impact(flexibility: .solid)
+            case .pressbutton:
+                    .press(.button)
+            case .pressbuttonIconOnly:
+                    .press(.buttonIconOnly)
+            case .pressslider:
+                    .press(.slider)
+            case .presstab:
+                    .press(.tab)
+            case .presstoggle:
+                    .press(.toggle)
+            case .releaseslider:
+                    .release(.slider)
+            case .selectionmaximum:
+                    .selection(.maximum)
+            case .selectionminimum:
+                    .selection(.minimum)
+            case .selectionoff:
+                    .selection(.off)
+            case .selectionon:
+                    .selection(.on)
+            }
+        } else {
+            switch self {
+            case .alignment:
+                    .alignment
+            case .decrease:
+                    .decrease
+            case .error:
+                    .error
+            case .impact:
+                    .impact
+            case .increase:
+                    .increase
+            case .levelChange:
+                    .levelChange
+            case .pathComplete:
+                    .pathComplete
+            case .selection:
+                    .selection
+            case .start:
+                    .start
+            case .stop:
+                    .stop
+            case .success:
+                    .success
+            case .warning:
+                    .warning
+            case .impactrigid:
+                    .impact(flexibility: .rigid)
+            case .impactsoft:
+                    .impact(flexibility: .soft)
+            case .impactsolid:
+                    .impact(flexibility: .solid)
+            default:
+                    .alignment // will never execute
+            }
+        }
+    }
+}
+
+@available(iOS 17.5, macOS 14, *)
 struct SwiftUIHapticsListRow: View {
     @State var haptic: SwiftUIFeedback
     @State private var clicks = 0
     @State private var info = false
     var body: some View {
         RowView(button: { clicks += 1 }, haptic: haptic)
-        .sensoryFeedback(haptic.haptic, trigger: clicks)
+            .sensoryFeedback(haptic.haptic.sensoryFeedback, trigger: clicks)
     }
 }
 

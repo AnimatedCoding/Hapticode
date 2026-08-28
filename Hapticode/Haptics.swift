@@ -6,14 +6,15 @@
 //
 
 import Foundation
+import SwiftData
 
-protocol Haptic: Identifiable {
+protocol Haptic: Identifiable, Codable {
     var id: UUID { get }
     var name: String { get }
     var docURL: URL { get }
     var platforms: [Platform] { get }
 }
 
-enum Platform {
+enum Platform: String, Codable {
     case iOS, macOS, tvOS, watchOS, visionOS, notSpecified
 }

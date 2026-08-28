@@ -26,16 +26,18 @@ struct HapticodeApp: App {
     var body: some Scene {
         WindowGroup {
             VStack {
-                if #available(iOS 16, *) {
+                if #available(iOS 17, *) {
+                    ContentView()
+                        .modelContainer(for: [CoreHapticContainer.self])
+                } else if #available(iOS 16, *) {
                     ContentView()
                 } else {
-                    #if os(macOS)
-                    #else
+#if os(macOS)
+#else
                     Legacy_iOS_16_View()
-                    #endif
+#endif
                 }
             }
         }
-        //.modelContainer(sharedModelContainer)
     }
 }
