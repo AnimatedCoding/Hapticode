@@ -111,7 +111,7 @@ struct ContentView: View {
                     )
                 }
                 .scrollIndicators(.hidden)
-                Link("Docs", destination: URL(string: "https://developer.apple.com/documentation/swiftui/view/sensoryfeedback(_:trigger:)")!)
+                SafariViewButton(title: "Docs", url: URL(string: "https://developer.apple.com/documentation/swiftui/view/sensoryfeedback(_:trigger:)")!)
             }
             .listRowSeparator(.hidden)
             .toolbar {

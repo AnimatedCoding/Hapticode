@@ -24,7 +24,9 @@ struct ContentView: View {
                 }
 #if os(macOS)
 #else
-                UIKitHaptics()
+                UIKitImpactHaptics()
+                UIKitNotificationHaptics()
+                UIKitSelectionHaptics()
 #endif
                 CoreHapticsList()
                 //                ForEach(items) { item in

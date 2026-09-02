@@ -12,7 +12,9 @@ import SwiftUI
 struct Legacy_iOS_16_View: View {
     var body: some View {
         List {
-            UIKitHaptics()
+            UIKitImpactHaptics()
+            UIKitNotificationHaptics()
+            UIKitSelectionHaptics()
         }
     }
 }

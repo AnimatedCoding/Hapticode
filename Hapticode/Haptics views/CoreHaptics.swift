@@ -98,7 +98,7 @@ struct ContentView: View {
                             .foregroundStyle(.background)
                     )
                 }
-                Link("Docs", destination: URL(string: "https://developer.apple.com/documentation/corehaptics/chhapticengine")!)
+                SafariViewButton(title: "Docs", url: URL(string: "https://developer.apple.com/documentation/corehaptics/chhapticengine")!)
             }
             .listRowSeparator(.hidden)
             .toolbar {
@@ -219,13 +219,14 @@ struct CoreHapticsEditor: View {
     @State private var engine: CHHapticEngine?
     @Bindable var container: CoreHapticContainer
     @State private var haptic = CoreHaptic()
+    @State private var chache: CoreHaptic?
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         NavigationStackOldCompatible {
             List {
-                Section("Edit \(haptic.name)") {
+                Section("Edit \(container.haptic.name)") {
                     if #available(iOS 17, *) {
-                        TextField("Name", text: $haptic.name)
+                        TextField("New name", text: $haptic.name)
                     }
                     Toggle("Continuous", isOn: $haptic.continuous)
                     Text("Intensity (0...1): \(String(format: "%.2f", haptic.intensity))")
@@ -237,9 +238,6 @@ struct CoreHapticsEditor: View {
                         .opacity(haptic.continuous ? 1 : 0.5)
                     Stepper("Delay (relativeTime) in seconds: \(String(format: "%.2f", haptic.delay))", value: $haptic.delay, step: 0.1)
                 }
-            }
-            .onAppear {
-                haptic = container.haptic
             }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -284,12 +282,12 @@ struct CoreHapticsEditor: View {
         
         let event = CHHapticEvent(eventType: haptic.continuous ? .hapticContinuous : .hapticTransient, parameters: [intensity, sharpness], relativeTime: haptic.delay, duration: haptic.length)
         
-        // Will figure out later
-        //        let dynamicIntensity = CHHapticDynamicParameter(
-        //            parameterID: .hapticIntensityControl,
-        //            value: 1, // Set intensity to 50%
-        //            relativeTime: 0.1 // Start at 0.1 seconds into the pattern
-        //        )
+         // Will figure out later
+//                let dynamicIntensity = CHHapticDynamicParameter(
+//                    parameterID: .hapticIntensityControl,
+//                    value: 1, // Set intensity to 50%
+//                    relativeTime: 0.1 // Start at 0.1 seconds into the pattern
+//                )
         
         playHaptics(events: [event], perams: [])
     }
@@ -310,14 +308,29 @@ struct CoreHapticsEditor: View {
 struct AddButton: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @State private var alert = false
     @Binding var haptic: CoreHaptic
     var body: some View {
         Button(action: {
-            modelContext.insert(CoreHapticContainer(haptic: haptic))
-            dismiss()
+            if haptic.name.isEmpty {
+                alert = true
+            } else {
+                modelContext.insert(CoreHapticContainer(haptic: haptic))
+                dismiss()
+            }
         }) {
             Label("Add", systemImage: "plus")
         }
+        .alert("Are you sure you want to add this haptic without a name?", isPresented: $alert, actions: {
+            Button("Cancel") {
+                alert = false
+            }
+            Button("Add anyway", action: {
+                alert = false
+                modelContext.insert(CoreHapticContainer(haptic: haptic))
+                dismiss()
+            })
+        })
     }
 }
 
@@ -333,22 +346,27 @@ class CoreHapticContainer {
 @available(iOS 17, *)
 struct CoreHapticsSavedList: View {
     @Query private var haptics: [CoreHapticContainer]
-    @State private var editing: UUID?
+    @State private var editing: UUID? // Can't use a the CoreHapticContainer here because the list row doesn't like making a optional bindable
     @Environment(\.modelContext) private var modelContext
     var body: some View {
-        ForEach(haptics) { container in
+        ForEach(haptics.sorted(by: { $0.haptic.name > $1.haptic.name })) { container in
             CoreHapticsListRow(container: container, editing: $editing)
         }
         .onDelete(perform: delete)
-        .sheet(isPresented: .constant(editing != nil), content: {
+        .sheet(isPresented: .constant(editing != nil), onDismiss: {
+            editing = nil
+        }) {
             if let editing, let haptic = haptics.first(where: { $0.haptic.id == editing }) {
                 CoreHapticsEditor(container: haptic)
             }
-        })
+        }
     }
     func delete(at offsets: IndexSet) {
+        print(haptics)
+        print(offsets)
         for offset in offsets {
-            let haptic = haptics[offset]
+            let haptic = haptics.sorted(by: { $0.haptic.name > $1.haptic.name })[offset]
+            print("removing: ", haptic.haptic)
             modelContext.delete(haptic)
         }
     }
@@ -360,6 +378,7 @@ struct CoreHapticsListRow: View {
     @Binding var editing: UUID?
     var body: some View {
         RowView(button: {
+            print("Running button")
             var engine: CHHapticEngine?
             do {
                 engine = try CHHapticEngine()
@@ -391,7 +410,9 @@ struct CoreHapticsListRow: View {
             } catch {
                 print("Failed to play haptic: \(error.localizedDescription)")
             }
-        }, haptic: container.haptic)
+        }, haptic: container.haptic, action: (closure: {
+            editing = container.haptic.id
+        }, use: true))
     }
 }
 

@@ -11,9 +11,24 @@ struct RowView: View {
     @Environment(\.openURL) private var openURL
 
     let button: () -> Void
-    @State private var showShareSheet = false
+    @State private var webSheet = false
     @State private var showHelp = false
     let haptic: any Haptic
+    var action: (closure: () -> Void, use: Bool) = (closure: {}, use: false)
+    var longPress: () -> Void {
+        if action.use {
+            return action.closure
+        } else {
+            return {
+//#if os(macOS)
+//                    let sharingPicker = NSSharingServicePicker(items: ["Check out the docs", haptic.docURL])
+//                    sharingPicker.show(relativeTo: NSRect.zero, of: NSApp.keyWindow!.contentView!, preferredEdge: .minY)
+//#else
+                webSheet = true
+//#endif
+            }
+        }
+    }
     private var os: Platform {
         get {
 #if os(iOS)
@@ -34,7 +49,7 @@ struct RowView: View {
             Button(action: {
                 button()
             }) {
-                if haptic.name == "" {
+                if haptic.name.isEmpty {
                     Text("No name")
                         .opacity(0.5)
                 } else {
@@ -43,25 +58,16 @@ struct RowView: View {
                 Spacer()
             }
             .supportsLongPress {
-                #if os(macOS)
-                let sharingPicker = NSSharingServicePicker(items: ["Check out the docs", haptic.docURL])
-                sharingPicker.show(relativeTo: NSRect.zero, of: NSApp.keyWindow!.contentView!, preferredEdge: .minY)
-                #else
-                showShareSheet = true
-                #endif
+                longPress()
             }
             .contentShape(Rectangle())
             if !haptic.platforms.isEmpty && !haptic.platforms.contains(os) {
-                //MARK: -- make this not a button in voice over
                 Button(action: {
                     showHelp = true
                 }) {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .foregroundStyle(.orange)
                 }
-                .accessibilityLabel(Text("This haptic is not listed as available on your OS"))
-                .accessibilityRemoveTraits(.isButton)
-                .help("This haptic is not listed as available on your OS")
                 .alert("This haptic is not listed as available on your OS", isPresented: $showHelp, actions: {
                     Button(role: .cancel, action: {
                         showHelp = false
@@ -71,16 +77,35 @@ struct RowView: View {
                 })
             }
         }
+        .accessibilityChildren(children: {
+            HStack {
+                if haptic.name.isEmpty {
+                    Text("This haptic does not have a name")
+                } else {
+                    Text(haptic.name)
+                }
+                if !haptic.platforms.isEmpty && !haptic.platforms.contains(os) {
+                    Text("This haptic is not listed as available on your OS")
+                }
+            }
+            .accessibilityElement(children: .combine)
+        })
         .foregroundStyle(.primary)
         .buttonStyle(.borderless)
         #if os(macOS)
         .modifier(EmptyModifier())
         #else
-        .sheet(isPresented: $showShareSheet) {
-            ShareSheet(items: ["Check out the docs", haptic.docURL])
+        .sheet(isPresented: $webSheet) {
+            SafariViewWrapper(url: haptic.docURL)
         }
         #endif
     }
+}
+
+#Preview("Row view") {
+    #if os(iOS)
+    RowView(button: { print("Pressed") }, haptic: UIKitImpactHaptic(name: "Heavy", haptic: .heavy, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/heavy")!))
+    #endif
 }
 
 // Source - https://stackoverflow.com/a/76412638
@@ -150,10 +175,4 @@ extension View {
     func supportsLongPress(longPressAction: @escaping () -> ()) -> some View {
         modifier(SupportsLongPressModifier(longPressAction: longPressAction))
     }
-}
-
-#Preview {
-    #if os(iOS)
-    RowView(button: { print("Pressed") }, haptic: UIKitHaptic(name: "Heavy", haptic: .heavy, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/heavy")!))
-    #endif
 }

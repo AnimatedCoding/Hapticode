@@ -9,19 +9,19 @@ import SwiftUI
 
 #if os(macOS)
 #else
-struct UIKitHaptics: View {
-    let haptics = [
-        UIKitHaptic(name: "Light", haptic: .light, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/light")!),
-        UIKitHaptic(name: "Medium", haptic: .medium, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/medium")!),
-        UIKitHaptic(name: "Heavy", haptic: .heavy, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/heavy")!),
-        UIKitHaptic(name: "Rigid", haptic: .rigid, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/rigid")!),
-        UIKitHaptic(name: "Soft", haptic: .soft, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/soft")!),
+struct UIKitImpactHaptics: View {
+    let impactHaptics = [
+        UIKitImpactHaptic(name: "Light", haptic: .light, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/light")!),
+        UIKitImpactHaptic(name: "Medium", haptic: .medium, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/medium")!),
+        UIKitImpactHaptic(name: "Heavy", haptic: .heavy, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/heavy")!),
+        UIKitImpactHaptic(name: "Rigid", haptic: .rigid, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/rigid")!),
+        UIKitImpactHaptic(name: "Soft", haptic: .soft, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/soft")!),
     ]
     @State private var info = false
     var body: some View {
         Section {
-            ForEach(haptics) { haptic in
-                UIKitHapticRow(haptic: haptic)
+            ForEach(impactHaptics) { haptic in
+                UIKitImpactHapticRow(haptic: haptic)
             }
         } header: {
             HStack {
@@ -33,14 +33,14 @@ struct UIKitHaptics: View {
                     Image(systemName: "info")
                 }
                 .sheet(isPresented: $info, content: {
-                    UIKitHapticsInfo()
+                    UIKitImpactHapticsInfo()
                 })
             }
         }
     }
 }
 
-struct UIKitHapticsInfo: View {
+struct UIKitImpactHapticsInfo: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -66,7 +66,7 @@ struct ContentView: View {
                             .foregroundStyle(.background)
                     )
                 }
-                Link("Docs", destination: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator")!)
+                SafariViewButton(title: "Docs", url: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator")!)
             }
             .listRowSeparator(.hidden)
             .toolbar {
@@ -82,7 +82,7 @@ struct ContentView: View {
     }
 }
 
-struct UIKitHaptic: Haptic {
+struct UIKitImpactHaptic: Haptic {
     var id = UUID()
     var name: String
     var haptic: UIImpactFeedbackGenerator.FeedbackStyle
@@ -93,21 +93,11 @@ struct UIKitHaptic: Haptic {
 extension UIImpactFeedbackGenerator.FeedbackStyle: @retroactive Decodable {}
 extension UIImpactFeedbackGenerator.FeedbackStyle: @retroactive Encodable {}
 
-//UINotificationFeedbackGenerator.FeedbackType.error
-//UINotificationFeedbackGenerator.FeedbackType.success
-//UINotificationFeedbackGenerator.FeedbackType.warning
-//
-//UISelectionFeedbackGenerator.selectionChanged()//?
-//
-//UICanvasFeedbackGenerator.responds(to: )
-//
-//UIFeedbackGenerator
-
-struct UIKitHapticRow: View {
+struct UIKitImpactHapticRow: View {
     @State private var info = false
-    let haptic: UIKitHaptic
+    let haptic: UIKitImpactHaptic
     
-    init(haptic: UIKitHaptic) {
+    init(haptic: UIKitImpactHaptic) {
         self.haptic = haptic
     }
     var body: some View {
@@ -121,7 +111,7 @@ struct UIKitHapticRow: View {
 
 #Preview {
     List {
-        UIKitHaptics()
+        UIKitImpactHaptics()
     }
 }
 #endif
