@@ -61,7 +61,7 @@ struct CoreHapticsInfo: View {
 ###"""
 struct ContentView: View {
     var body: some View {
-        Button(haptic.name) {
+        Button("Play haptic") {
             var engine: CHHapticEngine?
             do {
                 engine = try CHHapticEngine()
@@ -92,7 +92,6 @@ struct ContentView: View {
 }
 """###
                     )
-                    
                     .listRowBackground (
                         RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
                             .foregroundStyle(.background)
@@ -100,6 +99,7 @@ struct ContentView: View {
                 }
                 SafariViewButton(title: "Docs", url: URL(string: "https://developer.apple.com/documentation/corehaptics/chhapticengine")!)
             }
+            .font(.body)
             .listRowSeparator(.hidden)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

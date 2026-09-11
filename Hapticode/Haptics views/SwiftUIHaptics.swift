@@ -98,7 +98,7 @@ struct SwiftUIHapticsInfo: View {
 struct ContentView: View {
     @State private var clicks = 0
     var body: some View {
-        Button(haptic.name) {
+        Button("Increase") {
             clicks += 1
         }
         .sensoryFeedback(.increase, trigger: clicks)

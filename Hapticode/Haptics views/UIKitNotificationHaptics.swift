@@ -50,7 +50,7 @@ struct UIKitNotificationHapticsInfo: View {
 """
 struct ContentView: View {
     var body: some View {
-        Button(haptic.name) {
+        Button("Play .success") {
             let impactGenerator = UINotificationFeedbackGenerator()
             impactGenerator.prepare()
             impactGenerator.notificationOccurred(.success)

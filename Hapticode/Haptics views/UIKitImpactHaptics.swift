@@ -52,7 +52,7 @@ struct UIKitImpactHapticsInfo: View {
 """
 struct ContentView: View {
     var body: some View {
-        Button(haptic.name) {
+        Button("Play .light") {
             let impactGenerator = UIImpactFeedbackGenerator(style: .light)
             impactGenerator.prepare()
             impactGenerator.impactOccurred()

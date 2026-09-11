@@ -16,6 +16,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
+                CoreHapticsList()
 #if os(macOS)
                 Text("Haptics do not play on macOS")
 #endif
@@ -28,7 +29,6 @@ struct ContentView: View {
                 UIKitNotificationHaptics()
                 UIKitSelectionHaptics()
 #endif
-                CoreHapticsList()
                 //                ForEach(items) { item in
                 //                    NavigationLink {
                 //                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
