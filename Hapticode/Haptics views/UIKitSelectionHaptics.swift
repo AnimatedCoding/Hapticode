@@ -26,9 +26,8 @@ struct UIKitSelectionHaptics: View {
             })
             Stepper("x value: \(x.description)", value: $x)
             Stepper("y value: \(y.description)", value: $y)
-//            ForEach(impactHaptics) { haptic in // implement saved here?
-//                UIKitSelectionHapticRow(haptic: haptic)
-//            }
+            Text("I don't realy see any difference when you change the values here")
+                .font(.caption2)
         } header: {
             HStack {
                 Text("UIKit Selection Feedback Generator")
@@ -39,51 +38,20 @@ struct UIKitSelectionHaptics: View {
                     Image(systemName: "info")
                 }
                 .sheet(isPresented: $info, content: {
-                    UIKitSelectionHapticsInfo()
+                    InfoSheet(haptic: HapticsInfo(title: "These are haptics you can get with UISelectionFeedbackGenerator. There is something where you give it the coordinates of the selection and a UIView, but I don't quite know what that accomplished. Here's an example of the way without coordinates:", example:
+                        """
+                        struct ContentView: View {
+                            var feedback = UISelectionFeedbackGenerator()
+                            var body: some View {
+                                Button("Play") {
+                                    feedback.prepare()
+                                    feedback.selectionChanged(at: CGPoint(x: 0.5, y: 0.5))
+                                }
+                            }
+                        }
+                        """,
+                        docs: URL(string: "https://developer.apple.com/documentation/uikit/uiselectionfeedbackgenerator")!))
                 })
-            }
-        }
-    }
-}
-
-struct UIKitSelectionHapticsInfo: View {
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        NavigationStackOldCompatible {
-            List {
-                Text("These are haptics you can get with UISelectionFeedbackGenerator. Here's an example:")
-                ScrollView(.horizontal) {
-                    Text(
-"""
-struct ContentView: View {
-    var feedback = UISelectionFeedbackGenerator()
-    var body: some View {
-        Button("Play") {
-            feedback.prepare()
-            feedback.selectionChanged(at: CGPoint(x: 0.5, y: 0.5))
-        }
-    }
-}
-"""
-                    )
-                    .listRowBackground (
-                        RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
-                            .foregroundStyle(.background)
-                    )
-                }
-                Text("You can use it with a UI view and have the spacific point where the selection occured, but I haven't done that yet.")
-                SafariViewButton(title: "Docs", url: URL(string: "https://developer.apple.com/documentation/uikit/uiselectionfeedbackgenerator")!)
-            }
-            .listRowSeparator(.hidden)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Image(systemName: "xmark")
-                    }
-                }
             }
         }
     }

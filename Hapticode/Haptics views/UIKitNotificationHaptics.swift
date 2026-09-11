@@ -31,50 +31,20 @@ struct UIKitNotificationHaptics: View {
                     Image(systemName: "info")
                 }
                 .sheet(isPresented: $info, content: {
-                    UIKitNotificationHapticsInfo()
+                    InfoSheet(haptic: HapticsInfo(title: "These are haptics you can get with UINotificationFeedbackGenerator. Here's an example:", example:
+                        """
+                        struct ContentView: View {
+                            var body: some View {
+                                Button("Play .success") {
+                                    let impactGenerator = UINotificationFeedbackGenerator()
+                                    impactGenerator.prepare()
+                                    impactGenerator.notificationOccurred(.success)
+                                }
+                            }
+                        }
+                        """,
+                        docs: URL(string: "https://developer.apple.com/documentation/uikit/uinotificationfeedbackgenerator")!))
                 })
-            }
-        }
-    }
-}
-
-struct UIKitNotificationHapticsInfo: View {
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        NavigationStackOldCompatible {
-            List {
-                Text("These are haptics you can get with UINotificationFeedbackGenerator. Here's an example:")
-                ScrollView(.horizontal) {
-                    Text(
-"""
-struct ContentView: View {
-    var body: some View {
-        Button("Play .success") {
-            let impactGenerator = UINotificationFeedbackGenerator()
-            impactGenerator.prepare()
-            impactGenerator.notificationOccurred(.success)
-        }
-    }
-}
-"""
-                    )
-                    .listRowBackground (
-                        RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
-                            .foregroundStyle(.background)
-                    )
-                }
-                SafariViewButton(title: "Docs", url: URL(string: "https://developer.apple.com/documentation/uikit/uinotificationfeedbackgenerator")!)
-            }
-            .listRowSeparator(.hidden)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Image(systemName: "xmark")
-                    }
-                }
             }
         }
     }

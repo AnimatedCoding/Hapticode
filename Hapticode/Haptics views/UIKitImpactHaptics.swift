@@ -11,11 +11,11 @@ import SwiftUI
 #else
 struct UIKitImpactHaptics: View {
     let impactHaptics = [
+        UIKitImpactHaptic(name: "Soft", haptic: .soft, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/soft")!),
         UIKitImpactHaptic(name: "Light", haptic: .light, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/light")!),
         UIKitImpactHaptic(name: "Medium", haptic: .medium, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/medium")!),
-        UIKitImpactHaptic(name: "Heavy", haptic: .heavy, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/heavy")!),
         UIKitImpactHaptic(name: "Rigid", haptic: .rigid, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/rigid")!),
-        UIKitImpactHaptic(name: "Soft", haptic: .soft, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/soft")!),
+        UIKitImpactHaptic(name: "Heavy", haptic: .heavy, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/heavy")!),
     ]
     @State private var info = false
     var body: some View {
@@ -33,50 +33,20 @@ struct UIKitImpactHaptics: View {
                     Image(systemName: "info")
                 }
                 .sheet(isPresented: $info, content: {
-                    UIKitImpactHapticsInfo()
+                    InfoSheet(haptic: HapticsInfo(title: "These are haptics you can get with UIImpactFeedbackGenerator. Here's an example:", example:
+                        """
+                        struct ContentView: View {
+                            var body: some View {
+                                Button("Play .light") {
+                                    let impactGenerator = UIImpactFeedbackGenerator(style: .light)
+                                    impactGenerator.prepare()
+                                    impactGenerator.impactOccurred()
+                                }
+                            }
+                        }
+                        """,
+                        docs: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator")!))
                 })
-            }
-        }
-    }
-}
-
-struct UIKitImpactHapticsInfo: View {
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        NavigationStackOldCompatible {
-            List {
-                Text("These are haptics you can get with UIImpactFeedbackGenerator. Here's an example:")
-                ScrollView(.horizontal) {
-                    Text(
-"""
-struct ContentView: View {
-    var body: some View {
-        Button("Play .light") {
-            let impactGenerator = UIImpactFeedbackGenerator(style: .light)
-            impactGenerator.prepare()
-            impactGenerator.impactOccurred()
-        }
-    }
-}
-"""
-                    )
-                    .listRowBackground (
-                        RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
-                            .foregroundStyle(.background)
-                    )
-                }
-                SafariViewButton(title: "Docs", url: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator")!)
-            }
-            .listRowSeparator(.hidden)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Image(systemName: "xmark")
-                    }
-                }
             }
         }
     }

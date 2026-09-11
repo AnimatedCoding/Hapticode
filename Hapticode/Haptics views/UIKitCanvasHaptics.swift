@@ -9,8 +9,9 @@ import SwiftUI
 
 #if os(macOS)
 #else
+@available(iOS 17.5, *)
 struct UIKitCanvasHaptics: View {
-    var feedback = UISelectionFeedbackGenerator()
+    var feedback = UICanvasFeedbackGenerator()
     @State private var info = false
     @State private var x = 0.5
     @State private var y = 0.5
@@ -34,57 +35,28 @@ struct UIKitCanvasHaptics: View {
             HStack {
                 Text("UIKit Canvas Feedback Generator")
                 Spacer()
-//                Button(action: {
-//                    info = true
-//                }) {
-//                    Image(systemName: "info")
-//                }
-//                .sheet(isPresented: $info, content: {
-//                    UIKitSelectionHapticsInfo()
-//                })
-            }
-        }
-    }
-}
-
-struct UIKitCanvasHapticsInfo: View {
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        NavigationStackOldCompatible {
-            List {
-                Text("These are haptics you can get with UISelectionFeedbackGenerator. Here's an example:")
-                ScrollView(.horizontal) {
-                    Text(
-"""
-struct ContentView: View {
-    var feedback = UISelectionFeedbackGenerator()
-    var body: some View {
-        Button("Play") {
-            feedback.prepare()
-            feedback.selectionChanged(at: CGPoint(x: 0.5, y: 0.5))
-        }
-    }
-}
-"""
-                    )
-                    .listRowBackground (
-                        RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
-                            .foregroundStyle(.background)
-                    )
+                Button(action: {
+                    info = true
+                }) {
+                    Image(systemName: "info")
                 }
-                Text("You can use it with a UI view and have the spacific point where the selection occured, but I haven't done that yet.")
-                SafariViewButton(title: "Docs", url: URL(string: "https://developer.apple.com/documentation/uikit/uiselectionfeedbackgenerator")!)
-            }
-            .listRowSeparator(.hidden)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Image(systemName: "xmark")
-                    }
-                }
+                .sheet(isPresented: $info, content: {
+                    InfoSheet(
+                        haptic: HapticsInfo(title: "These are haptics you can get with UICanvasFeedbackGenerator. They are for drawing events and will play tactile feedback on Apple Pencil Pro. Here's an example:",
+                                            example: """
+                                                struct ContentView: View {
+                                                    var feedback = UISelectionFeedbackGenerator()
+                                                    var body: some View {
+                                                        Button("Play") {
+                                                            feedback.prepare()
+                                                            feedback.selectionChanged(at: CGPoint(x: 0.5, y: 0.5))
+                                                        }
+                                                    }
+                                                }
+                                                """,
+                                            docs: URL(string: "https://developer.apple.com/documentation/uikit/uiselectionfeedbackgenerator")!)
+                    )
+                })
             }
         }
     }

@@ -78,7 +78,9 @@ struct RowView: View {
             }
         }
         .accessibilityChildren(children: {
-            HStack {
+            Button(action: {
+                button()
+            }) {
                 if haptic.name.isEmpty {
                     Text("This haptic does not have a name")
                 } else {
@@ -87,7 +89,12 @@ struct RowView: View {
                 if !haptic.platforms.isEmpty && !haptic.platforms.contains(os) {
                     Text("This haptic is not listed as available on your OS")
                 }
+                Spacer()
             }
+            .supportsLongPress {
+                longPress()
+            }
+            .contentShape(Rectangle())
             .accessibilityElement(children: .combine)
         })
         .foregroundStyle(.primary)

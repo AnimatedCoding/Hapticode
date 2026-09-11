@@ -77,56 +77,22 @@ struct SwiftUIHaptics: View {
                     Image(systemName: "info")
                 }
                 .sheet(isPresented: $info, content: {
-                    SwiftUIHapticsInfo()
+                    InfoSheet(haptic: HapticsInfo(title: "These are haptics you can get with the .sensoryFeedback(SensoryFeedback, trigger: Equatable). Here's an example:", example:
+                    """
+                    struct ContentView: View {
+                        @State private var clicks = 0
+                        var body: some View {
+                            Button("Increase") {
+                                clicks += 1
+                            }
+                            .sensoryFeedback(.increase, trigger: clicks)
+                        }
+                    }
+                    """,
+                    docs: URL(string: "https://developer.apple.com/documentation/swiftui/view/sensoryfeedback(_:trigger:)")!))
                 })
             }
         }
-    }
-}
-
-@available(iOS 17.0, macOS 14, *)
-struct SwiftUIHapticsInfo: View {
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        NavigationStack {
-            List {
-                Text("These are haptics you can get with the .sensoryFeedback(SensoryFeedback, trigger: Equatable). Here's an example:")
-                ScrollView(.horizontal) {
-                    Text(
-"""
-struct ContentView: View {
-    @State private var clicks = 0
-    var body: some View {
-        Button("Increase") {
-            clicks += 1
-        }
-        .sensoryFeedback(.increase, trigger: clicks)
-    }
-}
-""")
-                    .listRowBackground (
-                        RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
-                            .foregroundStyle(.background)
-                    )
-                }
-                .scrollIndicators(.hidden)
-                SafariViewButton(title: "Docs", url: URL(string: "https://developer.apple.com/documentation/swiftui/view/sensoryfeedback(_:trigger:)")!)
-            }
-            .listRowSeparator(.hidden)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Image(systemName: "xmark")
-                    }
-                }
-            }
-        }
-        #if os(macOS)
-        .frame(minHeight: 300)
-        #endif
     }
 }
 
@@ -138,7 +104,6 @@ struct SwiftUIFeedback: Haptic {
     var docURL: URL
     var platforms: [Platform]
 }
-
 
 @available(iOS 17.5, *)
 enum FeedbackStyle: Codable {
