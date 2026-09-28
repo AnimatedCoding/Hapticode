@@ -17,20 +17,17 @@ struct UIKitCanvasHaptics: View {
     @State private var y = 0.5
     var body: some View {
         Section {
-//            Button("Play", action: {
-//                feedback.prepare()
-//                if #available(iOS 17.5, *) {
-//                    feedback.selectionChanged(at: CGPoint(x: x, y: y))
-//                } else {
-//                    feedback.selectionChanged()
-//                }
-//            })
-//            Stepper("x value", value: $x)
-//            Stepper("y value", value: $y)
-//            ForEach(impactHaptics) { haptic in // implement saved here?
-//                UIKitSelectionHapticRow(haptic: haptic)
-//            }
-            Text("This will be impleented soon")
+            Button("Alignment Occurred", action: {
+				feedback.prepare()
+				feedback.alignmentOccurred(at: CGPoint(x: x, y: y))
+            })
+			Button("Path Completed", action: {
+				feedback.prepare()
+				feedback.pathCompleted(at: CGPoint(x: x, y: y))
+			})
+			Stepper("x value: \(x.description)", value: $x)
+			Stepper("y value: \(y.description)", value: $y)
+			Text("This only works on iPads")
         } header: {
             HStack {
                 Text("UIKit Canvas Feedback Generator")
@@ -42,19 +39,18 @@ struct UIKitCanvasHaptics: View {
                 }
                 .sheet(isPresented: $info, content: {
                     InfoSheet(
-                        haptic: HapticsInfo(title: "These are haptics you can get with UICanvasFeedbackGenerator. They are for drawing events and will play tactile feedback on Apple Pencil Pro. Here's an example:",
-                                            example: """
-                                                struct ContentView: View {
-                                                    var feedback = UISelectionFeedbackGenerator()
-                                                    var body: some View {
-                                                        Button("Play") {
-                                                            feedback.prepare()
-                                                            feedback.selectionChanged(at: CGPoint(x: 0.5, y: 0.5))
-                                                        }
-                                                    }
-                                                }
-                                                """,
-                                            docs: URL(string: "https://developer.apple.com/documentation/uikit/uiselectionfeedbackgenerator")!)
+						haptic: HapticsInfo(title: "These are haptics you can get with UICanvasFeedbackGenerator. They are for drawing events and will play tactile feedback on Apple Pencil Pro. Here's an example:", example:
+"""
+struct ContentView: View {
+	var feedback = UICanvasFeedbackGenerator()
+	var body: some View {
+		Button("Play") {
+			feedback.prepare()
+			feedback.alignmentOccurred(at: CGPoint(x: 0.5, y: 0.5))
+			}
+		}
+	}
+""", docs: URL(string: "https://developer.apple.com/documentation/uikit/uicanvasfeedbackgenerator")!)
                     )
                 })
             }
@@ -70,8 +66,6 @@ struct UIKitCanvasHaptic: Haptic {
     var docURL: URL
     var platforms: [Platform] = []
 }
-
-//UICanvasFeedbackGenerator.responds(to: )
 
 #Preview {
     List {

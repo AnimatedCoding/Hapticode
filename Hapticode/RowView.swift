@@ -49,18 +49,22 @@ struct RowView: View {
             Button(action: {
                 button()
             }) {
-                if haptic.name.isEmpty {
-                    Text("No name")
-                        .opacity(0.5)
-                } else {
-                    Text(haptic.name)
-                }
-                Spacer()
+				HStack {
+					if haptic.name.isEmpty {
+						Text("No name")
+							.opacity(0.5)
+//							.frame(maxWidth: .infinity), alignment: .leading)
+					} else {
+						Text(haptic.name)
+//							.frame(maxWidth: .infinity), alignment: .leading)
+					}
+					Spacer()
+				}
+				.contentShape(Rectangle())
             }
             .supportsLongPress {
                 longPress()
             }
-            .contentShape(Rectangle())
             if !haptic.platforms.isEmpty && !haptic.platforms.contains(os) {
                 Button(action: {
                     showHelp = true
@@ -110,9 +114,9 @@ struct RowView: View {
 }
 
 #Preview("Row view") {
-    #if os(iOS)
-    RowView(button: { print("Pressed") }, haptic: UIKitImpactHaptic(name: "Heavy", haptic: .heavy, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/heavy")!))
-    #endif
+	List {
+		RowView(button: { print("Pressed") }, haptic: UIKitImpactHaptic(name: "Heavy", haptic: .heavy, docURL: URL(string: "https://developer.apple.com/documentation/uikit/uiimpactfeedbackgenerator/feedbackstyle/heavy")!))
+	}
 }
 
 // Source - https://stackoverflow.com/a/76412638

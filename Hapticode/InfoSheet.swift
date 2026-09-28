@@ -15,13 +15,14 @@ struct InfoSheet: View {
             List {
                 Section {
                     Text(haptic.title)
-                    ScrollView(.horizontal) {
+                    ScrollView(.horizontal) { // Maybe add a gradient edge?
                         Text(haptic.example)
-                            .listRowBackground (
-                                RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
-                                    .foregroundStyle(.background)
-                            )
+							.textSelection(.enabled)
                     }
+					.listRowBackground (
+						RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
+							.foregroundStyle(.background)
+					)
                     SafariViewButton(title: "Docs", url: haptic.docs)
                 }
             }
