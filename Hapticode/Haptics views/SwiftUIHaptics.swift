@@ -77,7 +77,7 @@ struct SwiftUIHaptics: View {
                     Image(systemName: "info")
                 }
                 .sheet(isPresented: $info, content: {
-                    InfoSheet(haptic: HapticsInfo(title: "These are haptics you can get with the .sensoryFeedback(SensoryFeedback, trigger: Equatable). Here's an example:", example:
+					InfoSheet(haptic: HapticsInfo(navTitle: "Sensory feedback", title: "These are haptics you can get with the .sensoryFeedback(SensoryFeedback, trigger: Equatable). Here's an example:", example:
                     """
                     struct ContentView: View {
                         @State private var clicks = 0

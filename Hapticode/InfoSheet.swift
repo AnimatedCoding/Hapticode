@@ -15,19 +15,26 @@ struct InfoSheet: View {
             List {
                 Section {
                     Text(haptic.title)
-                    ScrollView(.horizontal) { // Maybe add a gradient edge?
+                    ScrollView(.horizontal) {
                         Text(haptic.example)
 							.textSelection(.enabled)
+							.padding(.horizontal)
                     }
-					.listRowBackground (
-						RoundedRectangle(cornerSize: CGSize(width: 0.5, height: 0.5), style: .continuous)
-							.foregroundStyle(.background)
-					)
+					.padding(.vertical)
+//					.overlay(alignment: .leading) {
+						// Gradient
+//					}
+					.background {
+						Color.gray
+							.opacity(0.25)
+							.frame(maxWidth: .infinity, maxHeight: .infinity)
+					}
+					.clipShape(RoundedRectangle(cornerSize: CGSize(width: 15, height: 15)))
                     SafariViewButton(title: "Docs", url: haptic.docs)
                 }
+				.listRowSeparator(.hidden)
             }
             .textCase(.none)
-            .listRowSeparator(.hidden)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: {
@@ -37,11 +44,13 @@ struct InfoSheet: View {
                     }
                 }
             }
+			.navigationTitle(haptic.navTitle)
         }
     }
 }
 
 struct HapticsInfo {
+	var navTitle: String
     var title: String
     var example: String
     var docs: URL
@@ -49,5 +58,5 @@ struct HapticsInfo {
 
 
 #Preview {
-    InfoSheet(haptic: HapticsInfo(title: "This is", example: "a haptic", docs: URL(string: "example.com?is=it_realy?")!))
+	InfoSheet(haptic: HapticsInfo(navTitle: "Title", title: "This is", example: "a haptic", docs: URL(string: "example.com?is=it_realy?")!))
 }

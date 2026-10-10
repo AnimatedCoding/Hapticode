@@ -33,7 +33,7 @@ struct UIKitImpactHaptics: View {
                     Image(systemName: "info")
                 }
                 .sheet(isPresented: $info, content: {
-                    InfoSheet(haptic: HapticsInfo(title: "These are haptics you can get with UIImpactFeedbackGenerator. Here's an example:", example:
+					InfoSheet(haptic: HapticsInfo(navTitle: "Impact Generator", title: "These are haptics you can get with UIImpactFeedbackGenerator. Here's an example:", example:
                         """
                         struct ContentView: View {
                             var body: some View {

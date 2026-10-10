@@ -31,7 +31,7 @@ struct UIKitNotificationHaptics: View {
                     Image(systemName: "info")
                 }
                 .sheet(isPresented: $info, content: {
-                    InfoSheet(haptic: HapticsInfo(title: "These are haptics you can get with UINotificationFeedbackGenerator. Here's an example:", example:
+					InfoSheet(haptic: HapticsInfo(navTitle: "Notification Generator", title: "These are haptics you can get with UINotificationFeedbackGenerator. Here's an example:", example:
                         """
                         struct ContentView: View {
                             var body: some View {

@@ -43,7 +43,7 @@ struct CoreHapticsList: View {
                     Image(systemName: "info")
                 }
                 .sheet(isPresented: $info, content: {
-                    InfoSheet(haptic: HapticsInfo(title: "These are haptics you can make using Core Haptics (CHHapticEngine). Here's an example:",
+					InfoSheet(haptic: HapticsInfo(navTitle: "Core Haptics", title: "These are haptics you can make using Core Haptics (CHHapticEngine). Here's an example:",
                                                   example: """
                                                     struct ContentView: View {
                                                         var body: some View {

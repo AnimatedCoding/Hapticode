@@ -38,7 +38,7 @@ struct UIKitSelectionHaptics: View {
                     Image(systemName: "info")
                 }
                 .sheet(isPresented: $info, content: {
-                    InfoSheet(haptic: HapticsInfo(title: "These are haptics you can get with UISelectionFeedbackGenerator. There is something where you give it the coordinates of the selection and a UIView, but I don't quite know what that accomplished. Here's an example of the way without coordinates:", example:
+					InfoSheet(haptic: HapticsInfo(navTitle: "Selection Generator", title: "These are haptics you can get with UISelectionFeedbackGenerator. There is something where you give it the coordinates of the selection and a UIView, but I don't quite know what that accomplished. Here's an example of the way without coordinates:", example:
                         """
                         struct ContentView: View {
                             var feedback = UISelectionFeedbackGenerator()

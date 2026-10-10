@@ -27,7 +27,7 @@ struct UIKitCanvasHaptics: View {
 			})
 			Stepper("x value: \(x.description)", value: $x)
 			Stepper("y value: \(y.description)", value: $y)
-			Text("This only works on iPads")
+			Text("This only works on Apple Pencil with iPads")
         } header: {
             HStack {
                 Text("UIKit Canvas Feedback Generator")
@@ -39,7 +39,7 @@ struct UIKitCanvasHaptics: View {
                 }
                 .sheet(isPresented: $info, content: {
                     InfoSheet(
-						haptic: HapticsInfo(title: "These are haptics you can get with UICanvasFeedbackGenerator. They are for drawing events and will play tactile feedback on Apple Pencil Pro. Here's an example:", example:
+						haptic: HapticsInfo(navTitle: "Canvas Generator", title: "These are haptics you can get with UICanvasFeedbackGenerator. They are for drawing events and will play tactile feedback on Apple Pencil Pro. Here's an example:", example:
 """
 struct ContentView: View {
 	var feedback = UICanvasFeedbackGenerator()

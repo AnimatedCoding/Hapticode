@@ -11,6 +11,7 @@ import SwiftData
 @available(iOS 16.0, *)
 struct ContentView: View {
     @Environment(\.colorScheme) private var colorScheme
+	@State private var showSettings = false
     var body: some View {
         NavigationStack {
             List {
@@ -48,6 +49,18 @@ struct ContentView: View {
                 LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing)
                     .ignoresSafeArea()
             }
+			.toolbar {
+				ToolbarItem(placement: .topBarLeading) {
+					Button {
+						showSettings = true
+					} label: {
+						Label("Settings", systemImage: "gear")
+					}
+				}
+			}
+			.sheet(isPresented: $showSettings) {
+				Settings()
+			}
         }
     }
 }
