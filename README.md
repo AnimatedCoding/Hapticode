@@ -22,3 +22,5 @@ Check it out on <a href="https://testflight.apple.com/join/r63Er1vz">TestFlight<
 Hapticode uses SwiftUI for its views and has both SwiftUI and UIKit haptic feedback generators. It works on iOS 15+, I'm planning on adding iPadOS and macOS in the future though. As for permissions, Hapticode doesn't need anything of yours, it works without permissions!
 
 <h4>I build this project for Stardance, a Hack Club program. Check them out <a href="https://hackclub.com"></a></h4>
+
+*I coded the whole thing myself, but I did interrogate AI regarding some of the decisions I made, like what feedback generators I needed and how to have the make the web sheet.*
