@@ -43,7 +43,7 @@ struct Settings: View {
 				}
 				.font(.callout)
 				Section("Help") {
-					Link("Having trouble? Contact me here", destination: URL(string: "help.animated.coding@gmail.com")!)
+					Link("Having trouble? Contact me here", destination: URL(string: "mailto:help.animated.coding@gmail.com")!)
 				}
 			}
 			.toolbar {
