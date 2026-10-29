@@ -85,15 +85,17 @@ struct RowView: View {
             Button(action: {
                 button()
             }) {
-                if haptic.name.isEmpty {
-                    Text("This haptic does not have a name")
-                } else {
-                    Text(haptic.name)
-                }
-                if !haptic.platforms.isEmpty && !haptic.platforms.contains(os) {
-                    Text("This haptic is not listed as available on your OS")
-                }
-                Spacer()
+				HStack {
+					if haptic.name.isEmpty {
+						Text("This haptic does not have a name")
+					} else {
+						Text(haptic.name)
+					}
+					if !haptic.platforms.isEmpty && !haptic.platforms.contains(os) {
+						Text("This haptic is not listed as available on your OS")
+					}
+					Spacer()
+				}
             }
             .supportsLongPress {
                 longPress()

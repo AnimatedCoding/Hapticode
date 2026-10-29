@@ -6,6 +6,14 @@
     {
       "layers" : [
         {
+          "fill-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "display-p3:0.85099,0.89343,0.96783,1.00000"
+              }
+            }
+          ],
           "image-name" : "Cube.png",
           "name" : "Cube",
           "position" : {
@@ -17,6 +25,14 @@
           }
         },
         {
+          "fill-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "display-p3:0.85099,0.89343,0.96783,1.00000"
+              }
+            }
+          ],
           "image-name" : "Inner ring.png",
           "name" : "Inner ring",
           "opacity" : 0.75,
@@ -29,6 +45,14 @@
           }
         },
         {
+          "fill-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "display-p3:0.85099,0.89343,0.96783,1.00000"
+              }
+            }
+          ],
           "image-name" : "Middle ring.png",
           "name" : "Middle ring",
           "opacity" : 0.5,
@@ -41,6 +65,20 @@
           }
         },
         {
+          "blend-mode-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : "normal"
+            }
+          ],
+          "fill-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "display-p3:0.85099,0.89343,0.96783,1.00000"
+              }
+            }
+          ],
           "image-name" : "Outer ring.png",
           "name" : "Outer ring",
           "opacity" : 0.25,

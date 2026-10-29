@@ -62,6 +62,8 @@ struct SupportsLongPress: PrimitiveButtonStyle {
 	/// Whether the button is being pressed
 	@State var isPressed: Bool = false
 	
+	@Environment(\.accessibilityReduceMotion) private var reduceMotion
+	
 	func makeBody(configuration: Configuration) -> some View {
 		
 		// The "label" as specified when declaring the button
@@ -69,7 +71,7 @@ struct SupportsLongPress: PrimitiveButtonStyle {
 		
 		// Visual feedback that the button is being pressed
 			.scaleEffect(self.isPressed ? 0.9 : 1.0)
-			.animation(.bouncy(extraBounce: 0.2), value: isPressed)
+			.animation(reduceMotion ? .smooth : .bouncy(extraBounce: 0.2), value: isPressed)
 			.onTapGesture {
 				
 				// Run the "action" as specified

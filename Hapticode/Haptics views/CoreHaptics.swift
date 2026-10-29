@@ -115,6 +115,7 @@ struct CoreHapticsMaker: View {
                     Stepper("Delay (relativeTime) in seconds: \(String(format: "%.2f", haptic.delay))", value: $haptic.delay, step: 0.1)
                 }
             }
+			.dismissKeyboardOnScroll()
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(action: {
@@ -127,6 +128,7 @@ struct CoreHapticsMaker: View {
                     Button(action: {
                         prepareHaptics()
                         startHaptics()
+						ReviewManager.shared.registerEvent()
                     }) {
                         Label("Play Haptic", systemImage: "play")
                     }
@@ -225,12 +227,13 @@ struct CoreHapticsEditor: View {
                     Slider(value: $haptic.intensity, in: 0...1)
                     Text("Sharpness (0...1): \(String(format: "%.2f", haptic.sharpness))")
                     Slider(value: $haptic.sharpness, in: 0...1)
-                    Stepper("Haptic length (duration) in seconds: \(String(format: "%.2f", haptic.length))", value: $haptic.length, step: 0.1)
+                    Stepper("Haptic length (duration) in seconds: \(String(format: "%.2f", haptic.length))", value: $haptic.length, step: 0.01)
                         .disabled(!haptic.continuous)
                         .opacity(haptic.continuous ? 1 : 0.5)
-                    Stepper("Delay (relativeTime) in seconds: \(String(format: "%.2f", haptic.delay))", value: $haptic.delay, step: 0.1)
+                    Stepper("Delay (relativeTime) in seconds: \(String(format: "%.2f", haptic.delay))", value: $haptic.delay, step: 0.01)
                 }
             }
+			.dismissKeyboardOnScroll()
             .onAppear {
                 haptic = container.haptic
             }
@@ -252,6 +255,7 @@ struct CoreHapticsEditor: View {
                     Button(action: {
                         container.haptic = haptic
                         dismiss()
+						ReviewManager.shared.registerEvent()
                     }) {
                         Label("Ok", systemImage: "checkmark")
                     }
@@ -312,6 +316,7 @@ struct AddButton: View {
             } else {
                 modelContext.insert(CoreHapticContainer(haptic: haptic))
                 dismiss()
+				ReviewManager.shared.registerEvent()
             }
         }) {
             Label("Add", systemImage: "plus")
@@ -413,4 +418,16 @@ struct CoreHapticsSavedList: View {
     List {
         CoreHapticsList()
     }
+}
+
+extension View {
+	func dismissKeyboardOnScroll() -> some View {
+		Group {
+			if #available(iOS 16, *) {
+				self.scrollDismissesKeyboard(.interactively)
+			} else {
+				self
+			}
+		}
+	}
 }
